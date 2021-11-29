@@ -3,9 +3,10 @@ static final int WINDOW_WIDTH = 1300;
 static final int WINDOW_HEIGHT = 600;
 static final int NEUTRAL_Y = WINDOW_HEIGHT / 2;
 static final int POS_Y = WINDOW_HEIGHT / 4;
+static final int POS_CAPITAL_Y = WINDOW_HEIGHT / 6;
 static final int NEG_Y = NEUTRAL_Y + (WINDOW_HEIGHT / 4);
-static final float DELTA_X = 1.2;
-static final float ELLIPSE_GROW_RATE = 0.5;
+static final float DELTA_X = 1.3;
+static final float ELLIPSE_GROW_RATE = 0.2;
 
 // Program state variables
 String curr_key = "";
@@ -65,7 +66,7 @@ void keyPressed(){
   // Save the current key for printing
   curr_key = Character.toString(key);  
   curr_y = POS_Y;
-  
+    
   if (keyCode == 10 ){  // ENTER toggles pause state
     curr_y = NEUTRAL_Y;
     paused = !paused; 
@@ -108,12 +109,18 @@ void keyPressed(){
     curr_y = POS_Y;
     stroke(255,255,0);
     
-  } else if ((keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) ){  // Letters
+  } else if (keyCode >= 65 && keyCode <= 90){  // Letters
     key_log.add(curr_key);  // add character to the key log
-    curr_y = POS_Y;
+    
+    if(Character.isUpperCase(key)){
+      curr_y = POS_CAPITAL_Y;
+    } else {
+      curr_y = POS_Y;
+    }
+    
     stroke(0,255,0);
     
-  }  else if (keyCode >= 48 && keyCode <= 57){  // Numbers
+  } else if (keyCode >= 48 && keyCode <= 57){  // Numbers
     key_log.add(curr_key);  // add character to the key log
     curr_y = POS_Y;
     stroke(0,0,255);
